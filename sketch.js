@@ -6,6 +6,16 @@ const clear = document.querySelector('.clear-btn');
 const pen = document.querySelector('#pen');
 const gridColor = document.querySelector('#grid-color');
 
+let mousePressed = false;
+
+// allows to click and hold to draw
+document.body.addEventListener('mousedown', () => {
+    mousePressed = true;
+})
+document.body.addEventListener('mouseup', () => {
+    mousePressed = false;
+})
+
 clear.addEventListener('click', () => {
     const cells = document.querySelectorAll('.cell');
     cells.forEach(cell => {
@@ -43,9 +53,18 @@ const createGrid = () => {
             cell.style.width = cellSize + 'px';
             cell.style.height = cellSize + 'px';
             row.appendChild(cell);
+            cell.addEventListener('mousedown', changeColor);
+            cell.addEventListener('mouseover', changeColor);
         }
         grid.appendChild(row);
     }
+}
+
+const changeColor = (event) => {
+    if(event.type === 'mouseover' && !mousePressed) return;
+    event.target.style.backgroundColor = pen.value;
+    event.target.classList.add('drawn');
+    console.log(event.target.style);
 }
 
 document.addEventListener("DOMContentLoaded", () => {

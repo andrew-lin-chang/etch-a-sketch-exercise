@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="sketch.js" defer></script>
+    <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="header">Etch-a-Sketch</div>
+        <div class="container">
+            <div class="controls">
+                <div>
+                    <input type="color" id="pen" name="pen" value="#000000">
+                    <label for="pen">Pen color</label>
+                </div>
+                <div>
+                    <input type="color" id="grid-color" name="grid-color" value="#ffffff">
+                    <label for="grid-color">Background color</label>
+                </div>
+                <div class="slider">
+                    <input type="range" min="1" max="50" value="16" class="slider" id="myRange">
+                    <div>
+                        <span id="rangeValue"></span>
+                    </div>
+                </div>
+                <button class="clear-btn">Clear</button>
+                <button class="gridlines-btn">Toggle Gridlines</button>
+            </div>
+            <div class="grid">
+            </div>
+        </div>
+    </div>
+</body>
+</html>

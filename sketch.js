@@ -1,8 +1,28 @@
 const grid = document.querySelector('.grid');
 const slider = document.querySelector('#myRange');
 const rangeValue = document.querySelector('#rangeValue');
+const toggleGridlines = document.querySelector('.gridlines-btn');
+const clear = document.querySelector('.clear-btn');
+const pen = document.querySelector('#pen');
+const gridColor = document.querySelector('#grid-color');
 
-slider.addEventListener('change', () => {
+clear.addEventListener('click', () => {
+    const cells = document.querySelectorAll('.cell');
+    cells.forEach(cell => {
+        cell.style.backgroundColor = gridColor.value;
+    })
+})
+
+gridColor.addEventListener('input', () => {
+    const cells = document.querySelectorAll('.cell');
+    cells.forEach(cell => {
+        if(!cell.classList.contains('drawn')) {
+            cell.style.backgroundColor = gridColor.value;
+        }
+    })
+})
+
+slider.addEventListener('input', () => {
     const rows = document.querySelectorAll('.row');
     rows.forEach(row => {
         row.remove();

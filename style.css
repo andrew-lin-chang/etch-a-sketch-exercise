@@ -48,6 +48,7 @@ button:active {
     background-color: white;
     display: flex;
     flex-direction: column;
+    box-shadow: 0 0 5px black;
 }
 
 .row {
@@ -57,4 +58,8 @@ button:active {
 
 .cell {
     outline: 1px solid black;
+}
+
+.nogrid {
+    outline: none;
 }

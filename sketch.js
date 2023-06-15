@@ -23,6 +23,15 @@ clear.addEventListener('click', () => {
     })
 })
 
+
+
+toggleGridlines.addEventListener('click', () => {
+    const cells = document.querySelectorAll('.cell');
+    cells.forEach(cell => {
+        cell.classList.toggle('nogrid');
+    })
+})
+
 gridColor.addEventListener('input', () => {
     const cells = document.querySelectorAll('.cell');
     cells.forEach(cell => {

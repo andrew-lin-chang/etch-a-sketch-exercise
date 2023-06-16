@@ -58,6 +58,7 @@ button:active {
 
 .cell {
     outline: 1px solid black;
+    background-color: white;
 }
 
 .nogrid {

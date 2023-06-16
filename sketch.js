@@ -1,58 +1,20 @@
+const DEFAULT_PEN_COLOR = '#000000';
+const DEFAULT_GRID_COLOR = '#ffffff';
+const DEFAULT_GRID_SIZE = 16;
+
 const grid = document.querySelector('.grid');
 const slider = document.querySelector('#myRange');
 const rangeValue = document.querySelector('#rangeValue');
 const toggleGridlines = document.querySelector('.gridlines-btn');
 const clear = document.querySelector('.clear-btn');
-const pen = document.querySelector('#pen');
-const gridColor = document.querySelector('#grid-color');
+const reset = document.querySelector('.reset-btn')
+let pen = document.querySelector('#pen');
+let gridColor = document.querySelector('#grid-color');
 
 let mousePressed = false;
 
-// allows to click and hold to draw
-document.body.addEventListener('mousedown', () => {
-    mousePressed = true;
-})
-document.body.addEventListener('mouseup', () => {
-    mousePressed = false;
-})
-
-clear.addEventListener('click', () => {
-    const cells = document.querySelectorAll('.cell');
-    cells.forEach(cell => {
-        cell.style.backgroundColor = gridColor.value;
-    })
-})
-
-
-
-toggleGridlines.addEventListener('click', () => {
-    const cells = document.querySelectorAll('.cell');
-    cells.forEach(cell => {
-        cell.classList.toggle('nogrid');
-    })
-})
-
-gridColor.addEventListener('input', () => {
-    const cells = document.querySelectorAll('.cell');
-    cells.forEach(cell => {
-        if(!cell.classList.contains('drawn')) {
-            cell.style.backgroundColor = gridColor.value;
-        }
-    })
-})
-
-slider.addEventListener('input', () => {
-    const rows = document.querySelectorAll('.row');
-    rows.forEach(row => {
-        row.remove();
-    })
-    createGrid();
-    rangeValue.textContent = `Grid size: ${slider.value} x ${slider.value}`;
-})
-
-const createGrid = () => {
-    const dimension = slider.value;
-    const cellSize = grid.clientWidth / slider.value;
+const createGrid = (dimension) => {
+    const cellSize = grid.clientWidth / dimension;
     for(let i = 0; i < dimension; i++) {
         const row = document.createElement('div');
         row.classList.add('row');
@@ -69,14 +31,68 @@ const createGrid = () => {
     }
 }
 
+const resetGrid = () => {
+    const rows = document.querySelectorAll('.row');
+    rows.forEach(row => {
+        row.remove();
+    })
+    pen.value = DEFAULT_PEN_COLOR;
+    gridColor.value = DEFAULT_GRID_COLOR;
+    slider.value = DEFAULT_GRID_SIZE;
+    rangeValue.textContent = `Grid size: ${slider.value} x ${slider.value}`;
+    createGrid(slider.value);
+}
+
 const changeColor = (event) => {
     if(event.type === 'mouseover' && !mousePressed) return;
     event.target.style.backgroundColor = pen.value;
     event.target.classList.add('drawn');
-    console.log(event.target.style);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    createGrid();
+    createGrid(slider.value);
+    rangeValue.textContent = `Grid size: ${slider.value} x ${slider.value}`;
+})
+
+// allows to click and hold to draw
+document.body.addEventListener('mousedown', () => {
+    mousePressed = true;
+})
+document.body.addEventListener('mouseup', () => {
+    mousePressed = false;
+})
+
+clear.addEventListener('click', () => {
+    const cells = document.querySelectorAll('.cell');
+    cells.forEach(cell => {
+        cell.style.backgroundColor = gridColor.value;
+        cell.classList.remove('drawn');
+    })
+})
+
+toggleGridlines.addEventListener('click', () => {
+    const cells = document.querySelectorAll('.cell');
+    cells.forEach(cell => {
+        cell.classList.toggle('nogrid');
+    })
+})
+
+reset.addEventListener('click', resetGrid);
+
+gridColor.addEventListener('input', () => {
+    const cells = document.querySelectorAll('.cell');
+    cells.forEach(cell => {
+        if(!cell.classList.contains('drawn')) {
+            cell.style.backgroundColor = gridColor.value;
+        }
+    })
+})
+
+slider.addEventListener('input', () => {
+    const rows = document.querySelectorAll('.row');
+    rows.forEach(row => {
+        row.remove();
+    })
+    createGrid(slider.value);
     rangeValue.textContent = `Grid size: ${slider.value} x ${slider.value}`;
 })

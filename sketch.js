@@ -12,6 +12,7 @@ let pen = document.querySelector('#pen');
 let gridColor = document.querySelector('#grid-color');
 
 let mousePressed = false;
+let gridlineToggled = false;
 
 const createGrid = (dimension) => {
     const cellSize = grid.clientWidth / dimension;
@@ -24,6 +25,7 @@ const createGrid = (dimension) => {
             cell.style.width = cellSize + 'px';
             cell.style.height = cellSize + 'px';
             cell.style.backgroundColor = gridColor.value;
+            if(gridlineToggled) cell.classList.add('gridline');
             row.appendChild(cell);
             cell.addEventListener('mousedown', changeColor);
             cell.addEventListener('mouseover', changeColor);
@@ -73,8 +75,9 @@ clear.addEventListener('click', () => {
 
 toggleGridlines.addEventListener('click', () => {
     const cells = document.querySelectorAll('.cell');
+    gridlineToggled = !gridlineToggled;
     cells.forEach(cell => {
-        cell.classList.toggle('nogrid');
+        cell.classList.toggle('gridline');
     })
 })
 

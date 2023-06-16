@@ -23,6 +23,7 @@ const createGrid = (dimension) => {
             cell.classList.add('cell');
             cell.style.width = cellSize + 'px';
             cell.style.height = cellSize + 'px';
+            cell.style.backgroundColor = gridColor.value;
             row.appendChild(cell);
             cell.addEventListener('mousedown', changeColor);
             cell.addEventListener('mouseover', changeColor);
